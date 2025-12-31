@@ -54,7 +54,14 @@ export default function GlowUpChallengeApp() {
     setLanguage,
     hasSelectedLanguage,
     canAccessDay,
-    getCurrentUnlockedDay
+    getCurrentUnlockedDay,
+    bonusProgress,
+    toggleWeeklyBonus,
+    updateWeeklyBonusNotes,
+    toggleChecklistCompleted,
+    toggleMiniGuideStep,
+    getWeeklyBonusProgress,
+    getSectionWeeklyCompletion
   } = useStore();
 
   const { t } = useTranslation();
@@ -1023,29 +1030,113 @@ export default function GlowUpChallengeApp() {
               <h1 className="text-2xl font-bold">{t.bonus.title}</h1>
             </div>
 
+            {/* Indicateur de progression global */}
+            <Card className={`border-none shadow-lg ${theme === 'dark' ? 'bg-stone-900' : 'bg-white'}`}>
+              <CardContent className="p-5">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-semibold text-sm flex items-center gap-2">
+                      <Award className="w-4 h-4 text-purple-500" />
+                      {language === 'fr' ? 'Progression Globale' : language === 'en' ? 'Overall Progress' : 'Progreso Global'}
+                    </h3>
+                    <Badge variant="outline" className="text-xs">
+                      {(() => {
+                        const totalWeeks = bonusSections.length * 4; // 3 sections × 4 semaines
+                        const completedWeeks = bonusSections.reduce((acc, section) =>
+                          acc + getSectionWeeklyCompletion(section.id), 0
+                        );
+                        const checklistsTotal = checklistsData.length;
+                        const checklistsCompleted = bonusProgress.checklistsCompleted.length;
+                        const guideTotal = softLifeGuide.steps.length;
+                        const guideCompleted = bonusProgress.miniGuideStepsCompleted.length;
+                        const total = totalWeeks + checklistsTotal + guideTotal;
+                        const completed = completedWeeks + checklistsCompleted + guideCompleted;
+                        return `${completed} / ${total}`;
+                      })()}
+                    </Badge>
+                  </div>
+                  <Progress
+                    value={(() => {
+                      const totalWeeks = bonusSections.length * 4;
+                      const completedWeeks = bonusSections.reduce((acc, section) =>
+                        acc + getSectionWeeklyCompletion(section.id), 0
+                      );
+                      const checklistsTotal = checklistsData.length;
+                      const checklistsCompleted = bonusProgress.checklistsCompleted.length;
+                      const guideTotal = softLifeGuide.steps.length;
+                      const guideCompleted = bonusProgress.miniGuideStepsCompleted.length;
+                      const total = totalWeeks + checklistsTotal + guideTotal;
+                      const completed = completedWeeks + checklistsCompleted + guideCompleted;
+                      return (completed / total) * 100;
+                    })()}
+                    className="h-3"
+                  />
+                  <div className="grid grid-cols-3 gap-2 text-xs">
+                    <div className={`p-2 rounded-lg text-center ${theme === 'dark' ? 'bg-stone-800' : 'bg-stone-50'}`}>
+                      <p className="font-semibold text-green-500">
+                        {bonusSections.reduce((acc, section) => acc + getSectionWeeklyCompletion(section.id), 0)} / {bonusSections.length * 4}
+                      </p>
+                      <p className="text-stone-500 dark:text-stone-400">
+                        {language === 'fr' ? 'Semaines' : language === 'en' ? 'Weeks' : 'Semanas'}
+                      </p>
+                    </div>
+                    <div className={`p-2 rounded-lg text-center ${theme === 'dark' ? 'bg-stone-800' : 'bg-stone-50'}`}>
+                      <p className="font-semibold text-blue-500">
+                        {bonusProgress.checklistsCompleted.length} / {checklistsData.length}
+                      </p>
+                      <p className="text-stone-500 dark:text-stone-400">Checklists</p>
+                    </div>
+                    <div className={`p-2 rounded-lg text-center ${theme === 'dark' ? 'bg-stone-800' : 'bg-stone-50'}`}>
+                      <p className="font-semibold text-amber-500">
+                        {bonusProgress.miniGuideStepsCompleted.length} / {softLifeGuide.steps.length}
+                      </p>
+                      <p className="text-stone-500 dark:text-stone-400">
+                        {language === 'fr' ? 'Guide' : language === 'en' ? 'Guide' : 'Guía'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Sections Bonus Principales */}
             <div className="space-y-3">
-              {bonusSections.map((section) => (
-                <Card
-                  key={section.id}
-                  onClick={() => setSelectedBonusSection(section)}
-                  className={`border-none shadow-lg cursor-pointer hover:scale-[1.02] transition-transform bg-gradient-to-r ${section.color}`}
-                >
-                  <CardContent className="p-5">
-                    <div className="flex items-center gap-4">
-                      <div className={`text-3xl ${section.iconColor} flex-shrink-0`}>
-                        {section.icon}
+              {bonusSections.map((section) => {
+                const weeklyCompletion = getSectionWeeklyCompletion(section.id);
+                return (
+                  <Card
+                    key={section.id}
+                    onClick={() => setSelectedBonusSection(section)}
+                    className={`border-none shadow-lg cursor-pointer hover:scale-[1.02] transition-transform bg-gradient-to-r ${section.color}`}
+                  >
+                    <CardContent className="p-5">
+                      <div className="flex items-center gap-4">
+                        <div className={`text-3xl ${section.iconColor} flex-shrink-0`}>
+                          {section.icon}
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="font-semibold text-base">{section.title}</h3>
+                            {weeklyCompletion > 0 && (
+                              <Badge variant="outline" className="text-[10px] px-1.5 py-0">
+                                {weeklyCompletion}/4
+                              </Badge>
+                            )}
+                          </div>
+                          <p className="text-xs text-stone-600 dark:text-stone-400">{section.description}</p>
+                          <p className="text-xs text-stone-500 dark:text-stone-500 mt-1 italic">{section.duration}</p>
+                          {weeklyCompletion > 0 && (
+                            <div className="mt-2">
+                              <Progress value={(weeklyCompletion / 4) * 100} className="h-1.5" />
+                            </div>
+                          )}
+                        </div>
+                        <ChevronRight className={`w-5 h-5 ${section.iconColor} flex-shrink-0`} />
                       </div>
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-base mb-1">{section.title}</h3>
-                        <p className="text-xs text-stone-600 dark:text-stone-400">{section.description}</p>
-                        <p className="text-xs text-stone-500 dark:text-stone-500 mt-1 italic">{section.duration}</p>
-                      </div>
-                      <ChevronRight className={`w-5 h-5 ${section.iconColor} flex-shrink-0`} />
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
 
             {/* Affirmations Écrites */}
@@ -1083,24 +1174,52 @@ export default function GlowUpChallengeApp() {
                 <CardDescription>{language === 'fr' ? 'Des guides pratiques pour t\'organiser' : language === 'en' ? 'Practical guides to organize yourself' : 'Guías prácticas para organizarte'}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
-                {checklistsData.map((checklist) => (
-                  <div
-                    key={checklist.id}
-                    onClick={() => setSelectedChecklist(checklist)}
-                    className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 cursor-pointer hover:scale-105 transition-transform"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-800 flex items-center justify-center text-xl">
-                        {checklist.icon}
-                      </div>
-                      <div>
-                        <p className="font-semibold text-sm">{checklist.title}</p>
-                        <p className="text-xs text-stone-500 dark:text-stone-500">{checklist.items.length} {language === 'fr' ? 'étapes' : language === 'en' ? 'steps' : 'pasos'}</p>
+                {checklistsData.map((checklist) => {
+                  const isCompleted = bonusProgress.checklistsCompleted.includes(checklist.id);
+                  return (
+                    <div
+                      key={checklist.id}
+                      className="space-y-2"
+                    >
+                      <div
+                        onClick={() => setSelectedChecklist(checklist)}
+                        className={`flex items-center justify-between p-4 rounded-xl cursor-pointer hover:scale-105 transition-transform ${
+                          isCompleted
+                            ? 'bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-500'
+                            : 'bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20'
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className={`w-10 h-10 rounded-full flex items-center justify-center text-xl ${
+                            isCompleted ? 'bg-green-100 dark:bg-green-800' : 'bg-blue-100 dark:bg-blue-800'
+                          }`}>
+                            {checklist.icon}
+                          </div>
+                          <div>
+                            <p className="font-semibold text-sm">{checklist.title}</p>
+                            <p className="text-xs text-stone-500 dark:text-stone-500">{checklist.items.length} {language === 'fr' ? 'étapes' : language === 'en' ? 'steps' : 'pasos'}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleChecklistCompleted(checklist.id);
+                            }}
+                            className={`w-6 h-6 rounded-full flex items-center justify-center cursor-pointer transition-all ${
+                              isCompleted
+                                ? 'bg-green-500 text-white'
+                                : 'bg-stone-200 dark:bg-stone-700 hover:bg-stone-300 dark:hover:bg-stone-600'
+                            }`}
+                          >
+                            {isCompleted && <Check className="w-4 h-4" />}
+                          </div>
+                          <ChevronRight className={`w-5 h-5 ${isCompleted ? 'text-green-400' : 'text-blue-400'}`} />
+                        </div>
                       </div>
                     </div>
-                    <ChevronRight className="w-5 h-5 text-blue-400" />
-                  </div>
-                ))}
+                  );
+                })}
               </CardContent>
             </Card>
 
@@ -1415,53 +1534,81 @@ export default function GlowUpChallengeApp() {
 
           <div className="p-6 overflow-y-auto max-h-[60vh]">
             <div className="space-y-4">
-              {softLifeGuide.steps.map((step) => (
-                <Card
-                  key={step.number}
-                  onClick={() => setSelectedGuideStep(selectedGuideStep === step.number ? null : step.number)}
-                  className={`border-none shadow-md cursor-pointer transition-all hover:scale-[1.02] ${theme === 'dark' ? 'bg-stone-800' : 'bg-white'}`}
-                >
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center gap-3">
-                      <div className="text-3xl">{step.icon}</div>
-                      <div className="flex-1">
+              {softLifeGuide.steps.map((step) => {
+                const isCompleted = bonusProgress.miniGuideStepsCompleted.includes(step.number);
+                return (
+                  <Card
+                    key={step.number}
+                    onClick={() => setSelectedGuideStep(selectedGuideStep === step.number ? null : step.number)}
+                    className={`border-none shadow-md cursor-pointer transition-all hover:scale-[1.02] ${
+                      isCompleted
+                        ? theme === 'dark' ? 'bg-green-900/20 border-2 border-green-500' : 'bg-green-50 border-2 border-green-500'
+                        : theme === 'dark' ? 'bg-stone-800' : 'bg-white'
+                    }`}
+                  >
+                    <CardHeader className="pb-3">
+                      <div className="flex items-center gap-3">
+                        <div className="text-3xl">{step.icon}</div>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2">
+                            <Badge variant="outline" className="text-xs">Étape {step.number}</Badge>
+                            {isCompleted && (
+                              <Badge className="text-xs bg-green-500 text-white">
+                                <Check className="w-3 h-3 mr-1" />
+                                Complété
+                              </Badge>
+                            )}
+                          </div>
+                          <CardTitle className="text-lg mt-1">{step.title}</CardTitle>
+                          <CardDescription className="text-xs mt-1">{step.description}</CardDescription>
+                        </div>
                         <div className="flex items-center gap-2">
-                          <Badge variant="outline" className="text-xs">Étape {step.number}</Badge>
-                        </div>
-                        <CardTitle className="text-lg mt-1">{step.title}</CardTitle>
-                        <CardDescription className="text-xs mt-1">{step.description}</CardDescription>
-                      </div>
-                      <ChevronRight className={`w-5 h-5 text-amber-400 transition-transform ${selectedGuideStep === step.number ? 'rotate-90' : ''}`} />
-                    </div>
-                  </CardHeader>
-
-                  {selectedGuideStep === step.number && (
-                    <CardContent className="pt-0 space-y-4">
-                      <div className={`p-4 rounded-xl ${theme === 'dark' ? 'bg-stone-900' : 'bg-amber-50'}`}>
-                        <p className="text-sm leading-relaxed">{step.content}</p>
-                      </div>
-
-                      <div>
-                        <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
-                          <Sparkles className="w-4 h-4 text-amber-400" />
-                          Conseils pratiques
-                        </h4>
-                        <div className="space-y-2">
-                          {step.tips.map((tip, index) => (
-                            <div
-                              key={index}
-                              className={`flex items-start gap-2 p-3 rounded-lg ${theme === 'dark' ? 'bg-stone-900' : 'bg-white'}`}
-                            >
-                              <span className="text-amber-400 text-sm mt-0.5">✨</span>
-                              <p className="text-sm flex-1">{tip}</p>
-                            </div>
-                          ))}
+                          <div
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleMiniGuideStep(step.number);
+                            }}
+                            className={`w-6 h-6 rounded-full flex items-center justify-center cursor-pointer transition-all ${
+                              isCompleted
+                                ? 'bg-green-500 text-white'
+                                : 'bg-stone-200 dark:bg-stone-700 hover:bg-stone-300 dark:hover:bg-stone-600'
+                            }`}
+                          >
+                            {isCompleted && <Check className="w-4 h-4" />}
+                          </div>
+                          <ChevronRight className={`w-5 h-5 ${isCompleted ? 'text-green-400' : 'text-amber-400'} transition-transform ${selectedGuideStep === step.number ? 'rotate-90' : ''}`} />
                         </div>
                       </div>
-                    </CardContent>
-                  )}
-                </Card>
-              ))}
+                    </CardHeader>
+
+                    {selectedGuideStep === step.number && (
+                      <CardContent className="pt-0 space-y-4">
+                        <div className={`p-4 rounded-xl ${theme === 'dark' ? 'bg-stone-900' : 'bg-amber-50'}`}>
+                          <p className="text-sm leading-relaxed">{step.content}</p>
+                        </div>
+
+                        <div>
+                          <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                            <Sparkles className="w-4 h-4 text-amber-400" />
+                            Conseils pratiques
+                          </h4>
+                          <div className="space-y-2">
+                            {step.tips.map((tip, index) => (
+                              <div
+                                key={index}
+                                className={`flex items-start gap-2 p-3 rounded-lg ${theme === 'dark' ? 'bg-stone-900' : 'bg-white'}`}
+                              >
+                                <span className="text-amber-400 text-sm mt-0.5">✨</span>
+                                <p className="text-sm flex-1">{tip}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </CardContent>
+                    )}
+                  </Card>
+                );
+              })}
             </div>
           </div>
         </DrawerContent>
@@ -1498,6 +1645,51 @@ export default function GlowUpChallengeApp() {
                     <p className="text-base font-semibold text-center">
                       {selectedBonusSection.content.intro}
                     </p>
+                  </div>
+                )}
+
+                {/* Suivi Hebdomadaire - Pour les sections avec suivi */}
+                {selectedBonusSection.id !== '50-choses-seule' && (
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-semibold text-sm flex items-center gap-2">
+                        <Calendar className="w-4 h-4" />
+                        {language === 'fr' ? 'Suivi Hebdomadaire' : language === 'en' ? 'Weekly Tracking' : 'Seguimiento Semanal'}
+                      </h4>
+                      <Badge variant="outline" className="text-xs">
+                        {getSectionWeeklyCompletion(selectedBonusSection.id)} / 4 {language === 'fr' ? 'semaines' : language === 'en' ? 'weeks' : 'semanas'}
+                      </Badge>
+                    </div>
+                    <div className="grid grid-cols-4 gap-2">
+                      {[1, 2, 3, 4].map((week) => {
+                        const progress = getWeeklyBonusProgress(selectedBonusSection.id, week);
+                        const isCompleted = progress?.completed || false;
+                        return (
+                          <div
+                            key={week}
+                            onClick={() => toggleWeeklyBonus(selectedBonusSection.id, week)}
+                            className={`p-3 rounded-xl cursor-pointer transition-all text-center ${
+                              isCompleted
+                                ? `${theme === 'dark' ? 'bg-green-900/30 border-2 border-green-500' : 'bg-green-50 border-2 border-green-500'}`
+                                : `${theme === 'dark' ? 'bg-stone-800 hover:bg-stone-700' : 'bg-stone-50 hover:bg-stone-100'}`
+                            }`}
+                          >
+                            <div className={`text-2xl mb-1 ${isCompleted ? 'text-green-500' : 'text-stone-400'}`}>
+                              {isCompleted ? '✓' : '○'}
+                            </div>
+                            <p className="text-xs font-medium">
+                              S{week}
+                            </p>
+                            {progress?.completedDate && (
+                              <p className="text-[10px] text-stone-500 dark:text-stone-400 mt-1">
+                                {new Date(progress.completedDate).toLocaleDateString(language === 'fr' ? 'fr-FR' : language === 'en' ? 'en-US' : 'es-ES', { day: 'numeric', month: 'short' })}
+                              </p>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <Progress value={(getSectionWeeklyCompletion(selectedBonusSection.id) / 4) * 100} className="h-2" />
                   </div>
                 )}
 

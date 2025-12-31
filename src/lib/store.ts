@@ -47,6 +47,20 @@ interface VisionBoardImage {
   caption: string;
 }
 
+interface WeeklyBonusProgress {
+  sectionId: string;
+  week: number; // 1-4 (pour 4 semaines)
+  completed: boolean;
+  completedDate?: string;
+  notes?: string;
+}
+
+interface BonusProgress {
+  weeklyProgress: WeeklyBonusProgress[];
+  checklistsCompleted: string[]; // IDs des checklists complétées
+  miniGuideStepsCompleted: number[]; // Indices des étapes du mini-guide complétées
+}
+
 interface AppState {
   // Navigation
   currentView: View;
@@ -100,6 +114,15 @@ interface AppState {
   // 50 Things Alone
   completedThingsAlone: number[];
   toggleThingAlone: (index: number) => void;
+
+  // Bonus Progress
+  bonusProgress: BonusProgress;
+  toggleWeeklyBonus: (sectionId: string, week: number) => void;
+  updateWeeklyBonusNotes: (sectionId: string, week: number, notes: string) => void;
+  toggleChecklistCompleted: (checklistId: string) => void;
+  toggleMiniGuideStep: (stepIndex: number) => void;
+  getWeeklyBonusProgress: (sectionId: string, week: number) => WeeklyBonusProgress | undefined;
+  getSectionWeeklyCompletion: (sectionId: string) => number; // Retourne le nombre de semaines complétées
 
   // Progress Calculation
   getProgressPercentage: () => number;
@@ -329,6 +352,122 @@ export const useStore = create<AppState>()(
         } else {
           set({ completedThingsAlone: [...completed, index] });
         }
+      },
+
+      // Bonus Progress
+      bonusProgress: {
+        weeklyProgress: [],
+        checklistsCompleted: [],
+        miniGuideStepsCompleted: []
+      },
+      toggleWeeklyBonus: (sectionId, week) => {
+        const { weeklyProgress } = get().bonusProgress;
+        const existingIndex = weeklyProgress.findIndex(
+          (p) => p.sectionId === sectionId && p.week === week
+        );
+
+        const today = new Date().toISOString().split('T')[0];
+
+        if (existingIndex >= 0) {
+          // Toggle existing
+          const newProgress = [...weeklyProgress];
+          newProgress[existingIndex] = {
+            ...newProgress[existingIndex],
+            completed: !newProgress[existingIndex].completed,
+            completedDate: !newProgress[existingIndex].completed ? today : undefined
+          };
+          set({
+            bonusProgress: {
+              ...get().bonusProgress,
+              weeklyProgress: newProgress
+            }
+          });
+        } else {
+          // Add new
+          set({
+            bonusProgress: {
+              ...get().bonusProgress,
+              weeklyProgress: [
+                ...weeklyProgress,
+                {
+                  sectionId,
+                  week,
+                  completed: true,
+                  completedDate: today
+                }
+              ]
+            }
+          });
+        }
+      },
+      updateWeeklyBonusNotes: (sectionId, week, notes) => {
+        const { weeklyProgress } = get().bonusProgress;
+        const existingIndex = weeklyProgress.findIndex(
+          (p) => p.sectionId === sectionId && p.week === week
+        );
+
+        if (existingIndex >= 0) {
+          const newProgress = [...weeklyProgress];
+          newProgress[existingIndex] = {
+            ...newProgress[existingIndex],
+            notes
+          };
+          set({
+            bonusProgress: {
+              ...get().bonusProgress,
+              weeklyProgress: newProgress
+            }
+          });
+        } else {
+          set({
+            bonusProgress: {
+              ...get().bonusProgress,
+              weeklyProgress: [
+                ...weeklyProgress,
+                {
+                  sectionId,
+                  week,
+                  completed: false,
+                  notes
+                }
+              ]
+            }
+          });
+        }
+      },
+      toggleChecklistCompleted: (checklistId) => {
+        const { checklistsCompleted } = get().bonusProgress;
+        const newCompleted = checklistsCompleted.includes(checklistId)
+          ? checklistsCompleted.filter((id) => id !== checklistId)
+          : [...checklistsCompleted, checklistId];
+        set({
+          bonusProgress: {
+            ...get().bonusProgress,
+            checklistsCompleted: newCompleted
+          }
+        });
+      },
+      toggleMiniGuideStep: (stepIndex) => {
+        const { miniGuideStepsCompleted } = get().bonusProgress;
+        const newCompleted = miniGuideStepsCompleted.includes(stepIndex)
+          ? miniGuideStepsCompleted.filter((i) => i !== stepIndex)
+          : [...miniGuideStepsCompleted, stepIndex];
+        set({
+          bonusProgress: {
+            ...get().bonusProgress,
+            miniGuideStepsCompleted: newCompleted
+          }
+        });
+      },
+      getWeeklyBonusProgress: (sectionId, week) => {
+        return get().bonusProgress.weeklyProgress.find(
+          (p) => p.sectionId === sectionId && p.week === week
+        );
+      },
+      getSectionWeeklyCompletion: (sectionId) => {
+        return get().bonusProgress.weeklyProgress.filter(
+          (p) => p.sectionId === sectionId && p.completed
+        ).length;
       },
 
       // Progress Calculation
