@@ -10,6 +10,7 @@ interface ChallengeProgress {
   notes: Record<number, string>;
   startDate: string | null; // Date de début du challenge (YYYY-MM-DD)
   lastCompletedDate: string | null; // Dernière date de complétion (YYYY-MM-DD)
+  completedActions: Record<number, string[]>; // Actions complétées par jour {day: ['beauty', 'mental', ...]}
 }
 
 interface JournalEntry {
@@ -78,6 +79,7 @@ interface AppState {
   updateDayNotes: (day: number, notes: string) => void;
   canAccessDay: (day: number) => boolean;
   getCurrentUnlockedDay: () => number;
+  toggleActionCompletion: (day: number, actionKey: string) => void;
 
   // Journal
   journalEntries: JournalEntry[];
@@ -166,7 +168,8 @@ export const useStore = create<AppState>()(
         currentDay: 1,
         notes: {},
         startDate: null,
-        lastCompletedDate: null
+        lastCompletedDate: null,
+        completedActions: {}
       },
       toggleDayCompletion: (day) => {
         const { completedDays, currentDay } = get().challengeProgress;
@@ -243,6 +246,25 @@ export const useStore = create<AppState>()(
         }
 
         return 30; // Tous les jours sont complétés
+      },
+      toggleActionCompletion: (day, actionKey) => {
+        const { completedActions } = get().challengeProgress;
+        const dayActions = completedActions[day] || [];
+        const isCompleted = dayActions.includes(actionKey);
+
+        const newDayActions = isCompleted
+          ? dayActions.filter((key) => key !== actionKey)
+          : [...dayActions, actionKey];
+
+        set({
+          challengeProgress: {
+            ...get().challengeProgress,
+            completedActions: {
+              ...completedActions,
+              [day]: newDayActions
+            }
+          }
+        });
       },
 
       // Journal
