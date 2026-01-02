@@ -56,7 +56,10 @@ export const challengeDays: ChallengeDay[] = [
     actions: {
       beauty: "Aplica una crema hidratante o una mascarilla hidratante.",
       mental: "Tómate 5 minutos para respirar profundamente.",
-      lifestyle: "Bebe al menos 6 vasos de agua hoy y comienza tu rastreador de hidratación."
+      lifestyle: "Bebe al menos 6 vasos de agua hoy y comienza tu rastreador de hidratación.",
+      personnalite: "Eliminar azúcar añadido, refrescos, alcohol",
+      physique: "3 comidas reales, solo agua",
+      glowUp: "Aprender los conceptos básicos: proteínas, carbohidratos, grasas"
     }
   },
   {
