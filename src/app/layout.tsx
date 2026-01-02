@@ -22,6 +22,13 @@ export const metadata: Metadata = {
   authors: [{ name: "Glow Up Challenge" }],
   icons: {
     icon: "/logo.svg",
+    apple: "/icon.svg",
+  },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "UPGLOW",
   },
   openGraph: {
     title: "Glow Up Challenge - 30 Jours de Transformation",
@@ -33,6 +40,13 @@ export const metadata: Metadata = {
     title: "Glow Up Challenge - 30 Jours de Transformation",
     description: "Une expérience premium pour devenir la meilleure version de toi-même",
   },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
+  themeColor: "#fb7185",
 };
 
 export default function RootLayout({
@@ -42,6 +56,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" suppressHydrationWarning>
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="UPGLOW" />
+        <link rel="apple-touch-icon" href="/icon.svg" />
+      </head>
       <body
         className={`${playfairDisplay.variable} ${inter.variable} antialiased bg-background text-foreground`}
       >

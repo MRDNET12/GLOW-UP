@@ -24,6 +24,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import InstallPrompt from '@/components/InstallPrompt';
 
 export default function GlowUpChallengeApp() {
   const {
@@ -105,6 +106,20 @@ export default function GlowUpChallengeApp() {
       setCurrentView('dashboard');
     }
   }, [hasStarted, setCurrentView]);
+
+  // Register service worker for PWA
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/sw.js')
+        .then((registration) => {
+          console.log('Service Worker registered:', registration);
+        })
+        .catch((error) => {
+          console.log('Service Worker registration failed:', error);
+        });
+    }
+  }, []);
 
   const getCurrentDayData = () => challengeDays.find((d) => d.day === currentDay);
 
@@ -1889,6 +1904,9 @@ export default function GlowUpChallengeApp() {
           padding-bottom: env(safe-area-inset-bottom, 0px);
         }
       `}</style>
+
+      {/* PWA Install Prompt */}
+      <InstallPrompt />
     </div>
   );
 }
