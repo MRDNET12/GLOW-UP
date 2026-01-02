@@ -11,9 +11,9 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Aujourd'hui tu appuies sur « reset ». Prends quelques minutes pour respirer, t'ancrer, et poser l'intention de te choisir.",
     affirmation: "Je deviens une version plus légère et plus alignée de moi-même.",
     actions: {
-      beauty: "Fais un double nettoyage du visage et hydrate en profondeur.",
-      mental: "Écris tout ce qui te pèse en ce moment. Sans filtre.",
-      lifestyle: "Range ton espace principal (bureau, lit, salon)."
+      beauty: "Marche 20 min",
+      mental: "Écrire : \"Qui suis-je aujourd'hui ? Qui je refuse d'être dans 1 an ?\"",
+      lifestyle: "Écrire ce que tu veux changer dans ta vie"
     }
   },
   {
@@ -21,13 +21,13 @@ export const challengeDaysFr: ChallengeDay[] = [
     week: 1,
     weekTitle: "Reset et Nettoyage de vie",
     weekObjective: "Faire de l'espace, alléger l'esprit, repartir sur de bonnes bases.",
-    title: "Hydratation intérieure et extérieure",
+    title: "Nutrition consciente",
     content: "Le glow commence de l'intérieur.",
     affirmation: "Je nourris mon corps, mon esprit et mon énergie.",
     actions: {
-      beauty: "Applique une crème hydratante ou un masque hydratant.",
-      mental: "Prends 5 minutes pour respirer profondément.",
-      lifestyle: "Bois au moins 6 verres d'eau aujourd'hui et commence ton tracker d'hydratation."
+      beauty: "3 vrais repas, eau uniquement",
+      mental: "Aujourd'hui, supprimer sucre ajouté, sodas, alcool",
+      lifestyle: "Apprendre les bases : protéines, glucides, lipides"
     }
   },
   {
@@ -39,9 +39,9 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Ce que tu consommes influence ton état d'esprit.",
     affirmation: "Je choisis ce qui nourrit ma paix.",
     actions: {
-      beauty: "Fais un masque visage ou un soin rapide.",
-      mental: "Crée une playlist « good vibes only ».",
-      lifestyle: "Supprime les apps, photos et comptes qui ne t'apportent rien."
+      beauty: "Définir une heure de coucher fixe, limiter les écrans avant le sommeil (30 min à 1h), s'étirer 10 min",
+      mental: "",
+      lifestyle: "Noter vos compétences et celles que vous voulez développer"
     }
   },
   {
@@ -53,9 +53,9 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Une vie organisée crée un esprit en paix.",
     affirmation: "Je deviens une femme alignée, organisée et sereine.",
     actions: {
-      beauty: "Fais une routine minimaliste (nettoyage + hydratation).",
-      mental: "Écris 10 affirmations de confiance.",
-      lifestyle: "Planifie ta semaine (maximum 3 priorités)."
+      beauty: "Routine visage/corps/cheveux, soigner ongles et sourcils",
+      mental: "Lire ou écouter 20 min sur le développement personnel ou financier",
+      lifestyle: "Sans dieu dans ta vie tes petits problèmes te paraîtront grands, ne le délaisse pas."
     }
   },
   {
@@ -67,9 +67,9 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "L'énergie du corps influence ton glow.",
     affirmation: "Je prends soin de mon corps avec douceur.",
     actions: {
-      beauty: "Exfolie doucement ton corps et hydrate.",
-      mental: "Pratique 1 minute de respiration profonde.",
-      lifestyle: "Marche 10 à 15 minutes."
+      beauty: "Choisir un parfum signature à mettre que quand vous êtes chez vous (apprendre à s'auto valider), posture dos droit toute la journée",
+      mental: "Observer et noter vos comportements sociaux",
+      lifestyle: "Identifier une petite action financière à mettre en place (épargne, budget)"
     }
   },
   {
@@ -81,9 +81,9 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Il est temps de lâcher prise.",
     affirmation: "Je me libère de ce qui ne me sert plus.",
     actions: {
-      beauty: "Fais une routine de soin relaxante.",
-      mental: "Écris une lettre (que tu ne liras pas) sur ce que tu as besoin de libérer.",
-      lifestyle: "Désencombre un tiroir ou une petite zone."
+      beauty: "Faire 30 min d'exercice (corde à sauter, pilates, cardio...) et boire 1,5 L d'eau",
+      mental: "Repas riche en protéines",
+      lifestyle: "Exposition au soleil 15 min"
     }
   },
   {
@@ -95,7 +95,7 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Comment tu te sens ? Qu'est-ce qui a changé ? Quel petit pas t'a fait du bien ?",
     affirmation: "Je suis fière de prendre soin de moi.",
     actions: {
-      beauty: "Fais un soin qui te fait plaisir.",
+      beauty: "Planifier un mini-projet ou idée professionnelle (décide-toi pour de vrai)",
       mental: "Note tes accomplissements de la semaine.",
       lifestyle: "Prépare une intention pour la prochaine semaine."
     }
@@ -110,9 +110,9 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Aujourd'hui, on définit une routine skincare simple et efficace.",
     affirmation: "Je rayonne naturellement.",
     actions: {
-      beauty: "Définis une routine simple matin/soir (3 étapes).",
-      mental: "Respire et recentre-toi 2 minutes.",
-      lifestyle: "Note tes produits favoris."
+      beauty: "Routine beauté rapide, tenue propre et ajustée",
+      mental: "Selon ton projet d'hier, planifier une compétence à apprendre cette semaine",
+      lifestyle: "Écrire : valeurs non négociables. Ce qui vous met en colère = indice"
     }
   },
   {
@@ -120,13 +120,13 @@ export const challengeDaysFr: ChallengeDay[] = [
     week: 2,
     weekTitle: "Beauté et Self-care",
     weekObjective: "Mettre en place une routine simple, efficace et féminine.",
-    title: "Soin profond des cheveux",
+    title: "Organisation",
     content: "Tes cheveux aussi méritent des soins profonds.",
     affirmation: "Je me traite comme une reine.",
     actions: {
-      beauty: "Fais un masque nourrissant ou un bain d'huile.",
-      mental: "Prends un moment sans écran.",
-      lifestyle: "Range tes produits capillaires / accessoires."
+      beauty: "Noter les dépenses et identifier une économie possible",
+      mental: "To-do list simple",
+      lifestyle: "Ranger agenda / notes / objectifs"
     }
   },
   {
@@ -138,9 +138,9 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Le maquillage minimaliste peut être très impactant.",
     affirmation: "Je suis élégante et sûre de moi.",
     actions: {
-      beauty: "Maquillage léger mais impactant (gloss, mascara, glow).",
+      beauty: "Sortir sans maquillage",
       mental: "Adopte une posture confiante.",
-      lifestyle: "Choisis une tenue où tu te sens sublime."
+      lifestyle: "Choisis une tenue non moulante où tu te sens magnifique"
     }
   },
   {
@@ -152,8 +152,8 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Un look rapide ne veut pas dire négligé.",
     affirmation: "Je mérite de me sentir belle chaque jour.",
     actions: {
-      beauty: "Teint frais, cheveux coiffés simplement.",
-      mental: "Écris 3 choses que tu aimes chez toi.",
+      beauty: "Identifier 3 habitudes limitantes à changer",
+      mental: "Sortir seul(e) (café, marche, musée). Observer vos pensées",
       lifestyle: "Rafraîchis ton sac / range l'intérieur."
     }
   },
@@ -166,8 +166,8 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "L'élégance commence par la posture.",
     affirmation: "Je marche avec confiance et grâce.",
     actions: {
-      beauty: "Un soin rapide.",
-      mental: "Respire avec la poitrine ouverte.",
+      beauty: "Identifier 3 situations où vous dites oui à tort. En refuser UNE cette semaine",
+      mental: "Commence à développer ton projet ! Aide-toi avec des vidéos sur YouTube",
       lifestyle: "Pratique 3 minutes de posture élégante (dos droit, épaules ouvertes)."
     }
   },
@@ -180,8 +180,8 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Les détails font la différence.",
     affirmation: "Je prends soin des détails qui me font me sentir bien.",
     actions: {
-      beauty: "Coupe, lime, hydrate, vernis si tu veux.",
-      mental: "Ralentis ta journée 10 minutes.",
+      beauty: "Identifier les relations toxiques (énergie + / énergie -) et définir des limites. Prendre distance consciemment",
+      mental: "Lire ou écouter 30 min sur Dieu",
       lifestyle: "Crée un rituel de self-care hebdomadaire."
     }
   },
@@ -209,8 +209,8 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Visualise la femme que tu veux devenir.",
     affirmation: "Je deviens la femme que je visualise.",
     actions: {
-      beauty: "Un soin rapide.",
-      mental: "Crée un vision board (Canva ou papier).",
+      beauty: "Pratiquer l'écoute active dans toutes les conversations",
+      mental: "Noter idées pour générer de la valeur financière",
       lifestyle: "Accroche-le quelque part."
     }
   },
@@ -223,9 +223,9 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Les mots ont un pouvoir créateur.",
     affirmation: "Je suis capable, digne et confiante.",
     actions: {
-      beauty: "Ta routine habituelle.",
-      mental: "Écris 20 affirmations puissantes.",
-      lifestyle: "Lis-les à voix haute."
+      beauty: "Trier et organiser garde-robe, tester nouvelle combinaison de tenue",
+      mental: "Observer votre langage corporel et ajuster posture",
+      lifestyle: "Identifier un mentor ou modèle inspirant"
     }
   },
   {
@@ -237,8 +237,8 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Qu'est-ce que la version confiante de toi ferait ?",
     affirmation: "Je choisis la confiance.",
     actions: {
-      beauty: "Soin relaxant.",
-      mental: "Écris ce que la version confiante de toi ferait.",
+      beauty: "Dire moins, écouter plus. Ne pas se justifier inutilement",
+      mental: "Chercher une formation ou cours en ligne",
       lifestyle: "Applique une micro-action immédiatement."
     }
   },
@@ -251,7 +251,7 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Transforme tes pensées négatives en positives.",
     affirmation: "Mes pensées créent ma réalité, je choisis le positif.",
     actions: {
-      beauty: "Routine rapide.",
+      beauty: "Routine rapide, manucure, soin cheveux et peau",
       mental: "Note tes pensées négatives et transforme-les.",
       lifestyle: "Fais un mini rituel d'ancrage (bougie, thé...)."
     }
@@ -265,8 +265,8 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Commence la journée avec douceur et intention.",
     affirmation: "Je me réveille avec douceur et intention.",
     actions: {
-      beauty: "Rafraîchis ton visage.",
-      mental: "Choisis 3 choses qui t'enthousiasment pour la journée.",
+      beauty: "Dire NON à une demande qui ne vous sert pas",
+      mental: "Planifie la publication de ton projet",
       lifestyle: "Organise ta matinée à ton rythme."
     }
   },
@@ -279,8 +279,8 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Le bonheur est dans les petites choses.",
     affirmation: "Je mérite de profiter de chaque instant.",
     actions: {
-      beauty: "Un geste beauté simple.",
-      mental: "Liste 10 petits plaisirs faciles.",
+      beauty: "Complimenter sincèrement 3 personnes",
+      mental: "Réseaux : nettoyer / aligner. Ce que vous montrez = ce que vous êtes",
       lifestyle: "Réalise au moins 2 aujourd'hui."
     }
   },
@@ -308,8 +308,8 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Les soirées sacrées préparent de belles matinées.",
     affirmation: "Mes soirées sont un moment sacré pour moi.",
     actions: {
-      beauty: "Démaquillage profond + hydratation.",
-      mental: "Gratitude pour 3 choses.",
+      beauty: "Mode de vie, pas seulement argent",
+      mental: "Ne l'oublie pas, il peut vraiment changer ta vie",
       lifestyle: "Prépare ta journée de demain."
     }
   },
@@ -322,8 +322,8 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Une alimentation simple et saine nourrit le corps et l'esprit.",
     affirmation: "Je nourris mon corps avec amour et simplicité.",
     actions: {
-      beauty: "Soin express.",
-      mental: "Simplifie tes repas.",
+      beauty: "Écrire vos ambitions principales et pourquoi elles sont importantes",
+      mental: "Identifier 1 compétence monétisable",
       lifestyle: "Prépare 1 ou 2 recettes simples pour la semaine."
     }
   },
@@ -336,8 +336,8 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Porte des vêtements qui te font te sentir bien.",
     affirmation: "Je mérite de me sentir bien dans ce que je porte.",
     actions: {
-      beauty: "Parfum + look soigné.",
-      mental: "Écris comment tu veux te sentir dans tes vêtements.",
+      beauty: "Observer vos forces et faiblesses sociales",
+      mental: "Commencer apprentissage compétence choisie",
       lifestyle: "Fais un mini tri et garde les pièces qui te mettent en valeur."
     }
   },
@@ -378,8 +378,8 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "La vie douce, c'est choisir la douceur.",
     affirmation: "Je mérite le calme, la douceur et la beauté.",
     actions: {
-      beauty: "Un geste qui te fait du bien.",
-      mental: "Ralentis ton rythme.",
+      beauty: "Routine soin, posture et confiance corporelle",
+      mental: "Lancer votre mini-projet ou action concrète",
       lifestyle: "Fais 3 activités qui t'apaisent (bougie, musique douce, bain...)."
     }
   },
@@ -392,7 +392,7 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Entoure-toi de personnes positives.",
     affirmation: "Je cultive des relations belles et enrichissantes.",
     actions: {
-      beauty: "Une routine simple.",
+      beauty: "Faire une action que vous repoussez depuis longtemps",
       mental: "Contacte une personne qui te fait du bien.",
       lifestyle: "Planifie une sortie ou un moment agréable."
     }
@@ -420,7 +420,7 @@ export const challengeDaysFr: ChallengeDay[] = [
     content: "Tu l'as fait ! ✨ Comment tu te sens ? Qu'est-ce qui a le plus changé ? Quel est ton meilleur progrès ?",
     affirmation: "Je suis fière de moi. Ce n'est que le début.",
     actions: {
-      beauty: "Fais un soin spécial pour célébrer.",
+      beauty: "Reconnaître ta valeur",
       mental: "Note tes accomplissements du mois.",
       lifestyle: "Célèbre tes progrès !"
     }
