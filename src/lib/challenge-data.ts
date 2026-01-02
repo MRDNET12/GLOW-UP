@@ -643,7 +643,13 @@ export const bonusSections = [
         'Relee esta lista cada mañana para recordarte que eres capaz.'
       ],
       why: 'La autovaloración ayuda a fortalecer la confianza y reducir el sentimiento de fracaso.',
-      examples: []
+      examples: [],
+      tracking: {
+        weeklyCount: 0,
+        history: [],
+        encouragementThreshold: 3,
+        encouragementMessage: "On ne se connaît pas, mais ta joie est contagieuse : je suis très heureux pour toi et je fête avec toi ! 🥂"
+      }
     }
   },
   {
@@ -666,7 +672,12 @@ export const bonusSections = [
       examples: [
         { question: '¿Debo dejar este trabajo?', answer: 'Libertad' },
         { question: '¿Esta amistad me conviene?', answer: 'Agotada' }
-      ]
+      ],
+      tracking: {
+        monthlyCount: 0,
+        history: [],
+        inputField: ""
+      }
     }
   },
   {
@@ -690,7 +701,21 @@ export const bonusSections = [
         'Decir no a un favor que te incomoda'
       ],
       why: 'Establecer límites no es egoísta, es esencial para tu bienestar mental y emocional.',
-      examples: []
+      examples: [],
+      tracking: {
+        weeklyCounts: {
+          'No responder mensajes después de cierta hora': 0,
+          'Cortar conversaciones demasiado negativas': 0,
+          'Rehusar prestar algo si no te sientes cómoda': 0,
+          'Decir no a una invitación sin culpa': 0,
+          'Limitar el contacto con una persona invasiva': 0,
+          'Rehusar hablar de un tema sensible': 0,
+          'Pedir tiempo para pensar antes de responder': 0,
+          'Decir no a un favor que te incomoda': 0
+        },
+        encouragementThreshold: 3,
+        encouragementMessage: "ton engagement envers tes limites est une vraie victoire. Continue : ta paix intérieure te remercie, et moi je fête avec toi"
+      }
     }
   },
   {
