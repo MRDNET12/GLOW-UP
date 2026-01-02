@@ -25,8 +25,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import InstallPrompt from '@/components/InstallPrompt';
+import AppLoader from '@/components/AppLoader';
 
 export default function GlowUpChallengeApp() {
+  const [isHydrated, setIsHydrated] = useState(false);
+
   const {
     currentView,
     setCurrentView,
@@ -100,11 +103,16 @@ export default function GlowUpChallengeApp() {
   const [selectedGuideStep, setSelectedGuideStep] = useState<number | null>(null);
   const [selectedBonusSection, setSelectedBonusSection] = useState<ReturnType<typeof getLocalizedBonusSections>[0] | null>(null);
 
+  // Hydratation du store - évite les problèmes d'hydratation SSR/CSR
   useEffect(() => {
-    if (hasStarted) {
+    setIsHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (hasStarted && isHydrated) {
       setCurrentView('dashboard');
     }
-  }, [hasStarted, setCurrentView]);
+  }, [hasStarted, setCurrentView, isHydrated]);
 
   // Register service worker for PWA
   useEffect(() => {
@@ -133,6 +141,11 @@ export default function GlowUpChallengeApp() {
       });
     }
   }, []);
+
+  // Afficher le loader pendant l'hydratation
+  if (!isHydrated) {
+    return <AppLoader />;
+  }
 
   const getCurrentDayData = () => challengeDays.find((d) => d.day === currentDay);
 
