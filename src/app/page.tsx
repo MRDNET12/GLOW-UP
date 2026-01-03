@@ -26,6 +26,9 @@ import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerHeader, Dr
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import InstallPrompt from '@/components/InstallPrompt';
 import AppLoader from '@/components/AppLoader';
+import { SmallWins } from '@/components/SmallWins';
+import { EveningQuestion } from '@/components/EveningQuestion';
+import { BoundariesTracker } from '@/components/BoundariesTracker';
 
 export default function GlowUpChallengeApp() {
   const [isHydrated, setIsHydrated] = useState(false);
@@ -1297,6 +1300,15 @@ export default function GlowUpChallengeApp() {
                 })}
               </CardContent>
             </Card>
+
+            {/* Small Wins Tracker */}
+            <SmallWins />
+
+            {/* Evening Question */}
+            <EveningQuestion />
+
+            {/* Boundaries Tracker */}
+            <BoundariesTracker />
 
             {/* Mini-Guide Soft Life */}
             <Card
