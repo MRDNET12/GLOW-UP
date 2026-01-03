@@ -8,10 +8,13 @@ export function EveningQuestion() {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const [showHistory, setShowHistory] = useState(false);
-  
+
   const addEveningQuestion = useStore((state) => state.addEveningQuestion);
-  const questionsThisMonth = useStore((state) => state.getEveningQuestionsThisMonth());
-  const history = useStore((state) => state.getEveningQuestionsHistory());
+  const getEveningQuestionsThisMonth = useStore((state) => state.getEveningQuestionsThisMonth);
+  const getEveningQuestionsHistory = useStore((state) => state.getEveningQuestionsHistory);
+
+  const questionsThisMonth = getEveningQuestionsThisMonth();
+  const history = getEveningQuestionsHistory();
 
   const handleAdd = () => {
     if (question.trim() && answer.trim()) {

@@ -8,10 +8,13 @@ export function SmallWins() {
   const [newWin, setNewWin] = useState('');
   const [showHistory, setShowHistory] = useState(false);
   const [showCongrats, setShowCongrats] = useState(false);
-  
+
   const addSmallWin = useStore((state) => state.addSmallWin);
-  const winsThisWeek = useStore((state) => state.getSmallWinsThisWeek());
-  const history = useStore((state) => state.getSmallWinsHistory());
+  const getSmallWinsThisWeek = useStore((state) => state.getSmallWinsThisWeek);
+  const getSmallWinsHistory = useStore((state) => state.getSmallWinsHistory);
+
+  const winsThisWeek = getSmallWinsThisWeek();
+  const history = getSmallWinsHistory();
 
   const handleAddWin = () => {
     if (newWin.trim()) {

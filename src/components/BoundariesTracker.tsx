@@ -9,11 +9,14 @@ export function BoundariesTracker() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [showCongrats, setShowCongrats] = useState(false);
-  
+
   const addBoundaryEntry = useStore((state) => state.addBoundaryEntry);
-  const entriesThisWeek = useStore((state) => state.getBoundaryEntriesThisWeek());
-  const getBoundaryCount = useStore((state) => state.getBoundaryCountThisWeek);
-  const history = useStore((state) => state.getBoundaryHistory());
+  const getBoundaryEntriesThisWeek = useStore((state) => state.getBoundaryEntriesThisWeek);
+  const getBoundaryCountThisWeek = useStore((state) => state.getBoundaryCountThisWeek);
+  const getBoundaryHistory = useStore((state) => state.getBoundaryHistory);
+
+  const entriesThisWeek = getBoundaryEntriesThisWeek();
+  const history = getBoundaryHistory();
 
   const handleAddBoundary = (boundaryKey: string) => {
     addBoundaryEntry(boundaryKey);
