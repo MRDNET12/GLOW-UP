@@ -1301,23 +1301,6 @@ export default function GlowUpChallengeApp() {
               </CardContent>
             </Card>
 
-            {/* Titre Section Suivi Bonus */}
-            <div className="pt-4">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <Target className="w-6 h-6 text-purple-500" />
-                Suivi Bonus
-              </h2>
-            </div>
-
-            {/* Small Wins Tracker */}
-            <SmallWins />
-
-            {/* Evening Question */}
-            <EveningQuestion />
-
-            {/* Boundaries Tracker */}
-            <BoundariesTracker />
-
             {/* Mini-Guide Soft Life */}
             <Card
               onClick={() => setShowSoftLifeGuide(true)}
@@ -1887,6 +1870,16 @@ export default function GlowUpChallengeApp() {
                     <p className="text-sm leading-relaxed">{selectedBonusSection.content.why}</p>
                   </div>
                 )}
+
+                {/* Séparateur avant le suivi */}
+                {(selectedBonusSection.id === 'petits-succes' || selectedBonusSection.id === 'question-soir' || selectedBonusSection.id === 'limites-paix') && (
+                  <div className="border-t-2 border-dashed border-stone-300 dark:border-stone-700 my-6"></div>
+                )}
+
+                {/* Composants de suivi pour les 3 sections spécifiques */}
+                {selectedBonusSection.id === 'petits-succes' && <SmallWins />}
+                {selectedBonusSection.id === 'question-soir' && <EveningQuestion />}
+                {selectedBonusSection.id === 'limites-paix' && <BoundariesTracker />}
               </div>
             )}
           </div>
