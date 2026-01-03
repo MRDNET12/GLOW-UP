@@ -301,7 +301,7 @@ export const useStore = create<AppState>()(
         return 30; // Tous les jours sont complétés
       },
       toggleActionCompletion: (day, actionKey) => {
-        const { completedActions } = get().challengeProgress;
+        const { completedActions = {} } = get().challengeProgress;
         const dayActions = completedActions[day] || [];
         const isCompleted = dayActions.includes(actionKey);
 
@@ -321,6 +321,7 @@ export const useStore = create<AppState>()(
       },
       isActionCompleted: (day, actionKey) => {
         const { completedActions } = get().challengeProgress;
+        if (!completedActions) return false;
         const dayActions = completedActions[day] || [];
         return dayActions.includes(actionKey);
       },
@@ -649,7 +650,21 @@ export const useStore = create<AppState>()(
     }),
     {
       name: 'glow-up-storage',
-      version: 1
+      version: 2,
+      migrate: (persistedState: any, version: number) => {
+        // Migration from version 1 to 2: add completedActions if missing
+        if (version < 2) {
+          if (persistedState.challengeProgress && !persistedState.challengeProgress.completedActions) {
+            persistedState.challengeProgress.completedActions = {};
+          }
+          if (persistedState.bonusProgress && !persistedState.bonusProgress.smallWins) {
+            persistedState.bonusProgress.smallWins = [];
+            persistedState.bonusProgress.eveningQuestions = [];
+            persistedState.bonusProgress.boundaryEntries = [];
+          }
+        }
+        return persistedState;
+      }
     }
   )
 );
