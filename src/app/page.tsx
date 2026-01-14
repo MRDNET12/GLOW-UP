@@ -1440,8 +1440,8 @@ export default function GlowUpChallengeApp() {
                             </div>
                           </div>
 
-                          {pillar.gloweeMessage && (
-                             <div className={`p-4 rounded-xl border-l-4 border-violet-400 ${theme === 'dark' ? 'bg-violet-900/20' : 'bg-violet-100'}`}>
+                           {pillar.gloweeMessage && (
+                            <div className={`p-4 rounded-xl border-l-4 border-violet-400 ${theme === 'dark' ? 'bg-violet-900/20' : 'bg-violet-100'}`}>
                               <p className="text-sm italic font-medium flex items-center gap-2">
                                 <span>🦋</span>
                                 Glowee te rappelle : &laquo; {pillar.gloweeMessage} &raquo;
